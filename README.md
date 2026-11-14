@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # W6_6
 
 In this exercise, get familiar with the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) and specificly on the [ROT13](https://en.wikipedia.org/wiki/ROT13) implementation.
@@ -116,3 +117,6 @@ File name not defined.
 Aborting save operation.
 Program ending.
 ````
+=======
+# Python_programming_W6_6
+>>>>>>> origin/main
