@@ -1,4 +1,7 @@
 
+LOWER_ALPHABETS = "abcdefghijklmnopqrstuvwxyz"
+UPPER_ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 
 def collectPlainText():
     print("Collecting plain text rows for ciphering.")
@@ -13,22 +16,22 @@ def collectPlainText():
     return content
 
 
-def cipher(content):
-    LOWER_ALPHABETS = "abcdefghijklmnopqrstuvwxyz"
-    UPPER_ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def shiftCharacter(char, alphabet):
+    index = alphabet.index(char)
+    return alphabet[(index + 13) % 26]
 
+
+def rot13(content):
     cipheredText = ""
 
     for i in range(len(content)):
         char = content[i]
 
         if char in LOWER_ALPHABETS:
-            index = LOWER_ALPHABETS.index(char)
-            cipheredText += LOWER_ALPHABETS[(index + 13) % 26]
+            cipheredText += shiftCharacter(char, LOWER_ALPHABETS)
 
         elif char in UPPER_ALPHABETS:
-            index = UPPER_ALPHABETS.index(char)
-            cipheredText += UPPER_ALPHABETS[(index + 13) % 26] # 26 for charecter after 13
+            cipheredText += shiftCharacter(char, UPPER_ALPHABETS)
 
         else:
             cipheredText += char
@@ -36,14 +39,23 @@ def cipher(content):
     return cipheredText
 
 
+def cipher(content):
+    return rot13(content)
+
+
+def writeFile(filename, content):
+    targetFile = open(filename, "w", encoding="UTF-8")
+    targetFile.write(content)
+    targetFile.close()
+
+
 def saveFile(content):
     fileSaveName = input("Insert filename to save: ")
 
     if fileSaveName != "":
-        targetFile = open(fileSaveName, "w", encoding="utf-8")
-        targetFile.write(content)
-        targetFile.close()
+        writeFile(fileSaveName, content)
         print("Ciphered text saved!")
+
     else:
         print("File name not defined.")
         print("Aborting save operation.")
@@ -60,9 +72,12 @@ def main():
 
     print("\n#### Ciphered text ####")
 
+    print(cipherFile)
+
     saveFile(cipherFile)
 
     print("Program ending.")
 
-if __name__=="__mani__":
+
+if __name__ == "__main__":
     main()
